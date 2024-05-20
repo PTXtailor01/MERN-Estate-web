@@ -1,7 +1,7 @@
-import { Express } from "express";
-import { signup } from "../controllers/auth.controller";
+import signup from '../controllers/auth.controller.js'
+import Express from 'express'
 
-const router = Express.router();
+const router = Express.Router();
 
 router.post('/signup', signup);
 
