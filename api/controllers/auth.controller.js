@@ -1,7 +1,8 @@
 import User from "../models/user.model.js";
 import bcrypt from 'bcryptjs'
+import errorhandler from "../utils/error.js";
 
-async function signup(req, res) {
+async function signup(req, res, next) {
   const { username, password, email } = req.body;
   const hashedPassword = bcrypt.hashSync(password, 10);
   const newuser =new User({username,email,password: hashedPassword});
@@ -10,7 +11,7 @@ async function signup(req, res) {
     await newuser.save();
     res.status(201).json('User added successfully')
   } catch (error) {
-    res.status(500).json(error.message);
+    next(error);    
   }
 }
 
