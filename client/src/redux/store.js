@@ -18,7 +18,7 @@ export const store = configureStore({
   middleware: (getDefaultMiddleware) => [
     ...getDefaultMiddleware(),
     (store) => (next) => (action) => {
-      console.log('Action dispatched:', action);
+      // console.log('Action dispatched:', action);
       next(action);
     },
   ],
