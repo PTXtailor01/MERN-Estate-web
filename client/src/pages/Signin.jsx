@@ -27,14 +27,12 @@ export default function Signup() {
         },
         body: JSON.stringify(formData)
       });
-
       const data = await response.json();
       if (data.success == false) {
         dispatch(signInSuccess(data.message))
         return ;
       }
-
-      
+      console.log('here')
       dispatch(signInSuccess(data))
       navigate('/')
     } catch (error) {
