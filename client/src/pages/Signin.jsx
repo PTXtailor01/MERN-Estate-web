@@ -32,9 +32,8 @@ export default function Signup() {
         dispatch(signInSuccess(data.message))
         return ;
       }
-      console.log('here')
-      dispatch(signInSuccess(data))
-      navigate('/')
+      dispatch(signInSuccess(data));
+      navigate('/');
     } catch (error) {
       dispatch(signInFailure(error.message))
     }

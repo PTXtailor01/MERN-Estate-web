@@ -34,3 +34,17 @@ export const updateUser = async (req,res)=>{
     console.log(error)  
   }
 }
+
+export const deleteUser = async (req,res)=>{
+  // const userId = req.user?._id;
+  // if (userId !== req.params._id) {
+  //   return next(errorHandler(401, "You can only delete your own account"));
+  // } 
+  try {
+    console.log(req.params)
+    await User.findByIdAndDelete(req.params.id)
+    res.status(200).json("User has been deleted")
+  } catch (error) {
+    console.log(error)
+  }
+}
