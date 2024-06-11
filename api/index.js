@@ -1,5 +1,6 @@
 import authRouter from "./routes/auth.route.js";
 import userRouter from "./routes/user.route.js";
+import listingRouter from "./routes/listing.route.js";
 import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
@@ -26,6 +27,7 @@ app.listen(3030, () => {
 
 app.use("/api/user", userRouter);
 app.use("/api/auth", authRouter);
+app.use("/api/listing", listingRouter);
 
 //middleware
 app.use((err, req, res,next) => {
