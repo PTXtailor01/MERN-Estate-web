@@ -53,7 +53,7 @@ const CreateListing = () => {
             setImageUploadError("Maximum 6 images allowed");
             setImageUpload(false)
         }
-    }
+    }//to upload image
 
     const storImage = async (file)=>{
         return new Promise((resolve, reject)=>{
@@ -77,15 +77,16 @@ const CreateListing = () => {
                 }
             ) 
         })
-    }
+    }//to store image in firebase
 
     const handleRemoveImage = (index) =>{
         setFormData({...formData,imageUrls: formData.imageUrls.filter((_,i)=>i!==index)})
-    }
+    }// to delete image from listing
 
     const handleTypeChange = (t)=>{
         setFormData({...formData,type:t});
-    }
+    }//to setvalue of sell and rent checkboxes
+
     const handleInputChange = (e)=>{
         if(e.target.type === 'text'||e.target.type === 'textarea'||e.target.type === 'number'){
             setFormData({...formData,[e.target.id]:e.target.value})
@@ -93,7 +94,7 @@ const CreateListing = () => {
         else if(e.target.type === 'checkbox'){
             setFormData({...formData,[e.target.id]:e.target.checked})
         }
-    }
+    }//to set value of input to formData
 
     const handleSubmit = async (e)=>{
         e.preventDefault();
@@ -122,7 +123,7 @@ const CreateListing = () => {
             setError(error.message);
             setLoading(false);
         }
-    }
+    }//POST request to save formData to backend
 
 
     return (
