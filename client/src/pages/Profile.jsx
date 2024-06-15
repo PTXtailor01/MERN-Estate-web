@@ -5,6 +5,7 @@ import {app} from '../firebase'
 import { updateUserStart,updateUserFailure,updateUserSuccess,deleteUserFailure,deleteUserStart,deleteUserSuccess,SignOutUserFailure,SignOutUserStart,SignOutUserSuccess } from '../redux/user/userSlice'
 import {useDispatch} from 'react-redux'
 import { Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 export default function Profile() {
 
@@ -18,6 +19,7 @@ export default function Profile() {
   const [showListingsError , setShowListingsError] = useState(false)
   const [lists,setLists] = useState([])
   const dispatch = useDispatch()
+  const navigate = useNavigate()
 
   useEffect(()=>{
     if(file){
@@ -123,6 +125,22 @@ export default function Profile() {
     }
   }
 
+  const handleDeleteListing = async (id)=>{
+    try {
+      const res =await fetch(`/api/listing/delete/${id}`,{
+        method: 'DELETE',
+      });
+      const data = await res.json();
+      if(data.success === false){
+        console.log(data.message)
+        return;
+      }
+      setLists((prev)=> prev.filter((listing)=>listing._id !== id));
+    } catch (error) {
+      console.log(error.message)
+    }
+  }
+
   return (
     <div className='p-3 max-w-lg mx-auto'>
       <h1 className='text-3xl font-semibold text-center my-7'>Profile</h1>
@@ -157,9 +175,26 @@ export default function Profile() {
       <button onClick={handleShowListings} className='text-green-700 w-full'>Show listings</button>
       <p className='text-red-700 mt-5'>{showListingsError ? 'Error showing listings' : ""}</p>
       {
-        
-
+        lists && lists.length > 0 && 
+        <div className='flex flex-col gap-4'>
+          <h1 className=' text-center text-2xl font-semibold'>Your Listings</h1>
+          {lists.map((list)=>(
+            <div className='border border-slate-300 p-3 flex gap-4 justify-between items-center rounded-lg' key={list._id}>
+              <Link to={`/listing/${list._id}`}>
+                <img src={list.imageUrls[0]} alt="listing cover" className='h-16 w-16 object-contain'/>
+              </Link>
+              <Link to={`/listing/${list._id}`} className=' flex-1 text-slate-700 font-semibold hover:underline truncate '>
+                <p>{list.name}</p>
+              </Link>
+              <div className='flex flex-col items-center'>
+                <button className=' uppercase text-red-700' onClick={()=>handleDeleteListing(list._id)}>Delete</button>
+                <button className=' uppercase text-green-700' onClick={()=>navigate(`/update-listing/${list._id}`)}>Edit</button>
+              </div>
+            </div>
+          )) } 
+        </div>
       }
     </div>
+
   )
 }
