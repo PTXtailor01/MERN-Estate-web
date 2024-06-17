@@ -23,7 +23,7 @@ const Listing = () => {
     const fetchListing = async () => {
       try {
         setLoading(true);
-        const res = await fetch(`/api/listing/${params.listingId}`, {
+        const res = await fetch(`/api/listing/get/${params.listingId}`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
@@ -69,7 +69,6 @@ const Listing = () => {
         {copied && (
             <p className="fixed top-[23%] right-[5%] z-10 rounded-md bg-slate-100 p-2">Link copied!</p>
         )}
-        
         {/* ............. */}
         <div className="flex flex-col max-w-4xl mx-auto p3 my-7 gap-4 p-3">
             <p className="text-2xl font-semibold">{listing.name}- Rs{' '}
