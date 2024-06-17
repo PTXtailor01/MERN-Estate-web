@@ -5,7 +5,7 @@ import SwiperCore from 'swiper';
 import { Navigation } from 'swiper/modules';
 import 'swiper/css/bundle';
 import {useSelector} from 'react-redux';
-import {FaBath, FaBed, FaChair, FaMapMarkerAlt, FaParking} from 'react-icons/fa';
+import {FaBath, FaBed, FaChair, FaMapMarkerAlt, FaParking, FaShare} from 'react-icons/fa';
 import Contact from "../components/Contact";
 
 const Listing = () => {
@@ -16,6 +16,7 @@ const Listing = () => {
   const [error, setError] = useState(false);
   const {currentUser} = useSelector((state) => state.user);
   const [contact ,setContact] = useState(false);
+  const [copied ,setCopied] = useState(false)
 
   console.log(listing)
   useEffect(() => {
@@ -56,6 +57,20 @@ const Listing = () => {
                 </SwiperSlide>
             ))}
         </Swiper>
+        {/* For share button */}
+        <div className="fixed top-[13%] right-[3%] z-10 cursor-pointer bg-slate-800 h-10 w-10 rounded-full flex justify-center items-center text-lg">
+            <FaShare className="text-slate-400"
+            onClick={()=>{
+                navigator.clipboard.writeText(window.location.href);
+                setCopied(true);
+                setTimeout(()=>{setCopied(false)},2000);
+            }}/>
+        </div>
+        {copied && (
+            <p className="fixed top-[23%] right-[5%] z-10 rounded-md bg-slate-100 p-2">Link copied!</p>
+        )}
+        
+        {/* ............. */}
         <div className="flex flex-col max-w-4xl mx-auto p3 my-7 gap-4 p-3">
             <p className="text-2xl font-semibold">{listing.name}- Rs{' '}
                 {listing.offer ? listing.discountedPrice.toLocaleString('en-US') : listing.regularPrice.toLocaleString('en-US')}
