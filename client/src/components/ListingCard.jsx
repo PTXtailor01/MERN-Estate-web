@@ -18,7 +18,7 @@ const ListingCard = ({listing}) => {
                 { listing.offer 
                 ? listing.discountedPrice.toLocaleString('en-US') 
                 : listing.regularPrice.toLocaleString('en-US')}
-                {listing.type === 'rent' ? 'Rs' : ' Rs / month'}
+                {listing.type !== 'rent' ? ' Rs' : ' Rs / month'}
             </p>
             <div className="flex gap-4 text-slate-700 font-bold text-xs">
                 <div>
@@ -27,7 +27,6 @@ const ListingCard = ({listing}) => {
                 <div>
                     {listing.bathrooms > 1 ? `${listing.bathrooms} Baths` : `${listing.bathrooms} Bath`}
                 </div>
-
             </div>
         </div> 
         </Link>

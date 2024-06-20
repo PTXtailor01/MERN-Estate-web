@@ -34,7 +34,7 @@ const UpdateListing = () => {
         const fetchListing = async () => {
           const listingId = params.listingId;
           try {
-            const listing = await fetch(`/api/listing/${listingId}`,{
+            const listing = await fetch(`/api/listing/get/${listingId}`,{
               method: 'GET',
               headers: {
                 'Content-Type': 'application/json',

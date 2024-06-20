@@ -16,7 +16,8 @@ const Search = () => {
     });
     const navigate = useNavigate();
     const [loading,setLoading] = useState(false);
-    const [listings,setListings] = useState([])
+    const [listings,setListings] = useState([]);
+    const [showMore , setShowMore] = useState(false);
 
     console.log(listings)
 
@@ -47,6 +48,9 @@ const Search = () => {
             const searchQuery = urlParams.toString();
             const res = await fetch(`/api/listing/search?${searchQuery}`);
             const data = await res.json();
+            if(data.length > 3){
+                setShowMore(true);
+            }
             setListings(data);
             setLoading(false);
         }
@@ -85,8 +89,20 @@ const Search = () => {
         navigate(`/search?${searchQuery}`);
     }
 
+    const onShowMoreClick = async ()=>{
+        const numberOfListings = listings.length;
+        const startIndex = numberOfListings;
+        const urlParams = new URLSearchParams(location.search);
+        urlParams.set('startIndex',startIndex);
+        const searchQuery = urlParams.toString();
+        const res = await fetch(`/api/listing/search?${searchQuery}`);
+        const data = await res.json();
+        if(data.length<4) setShowMore(false);
+        setListings([...listings,...data]);
+    }
+
   return (
-    <div className="flex flex-col md:flex-row">
+    <div className="flex flex-col md:flex-row ">
       <div className="p-7 border-b-2 md:border-r-2 md:min-h-screen">
         <form className="flex flex-col gap-8" onSubmit={handleSubmit}>
           <div className="flex gap-2 items-center flex-wrap md:flex-nowrap">
@@ -154,6 +170,9 @@ const Search = () => {
             {!loading && listings && listings.map((list)=>(
                 <ListingCard key={list._id} listing = {list}/>
             ))}
+            {showMore && (
+                <button onClick={onShowMoreClick} className="text-green-700 hover:underline p-7 text-center w-full">Show more</button>
+            )}
         </div>
       </div>
     </div>
