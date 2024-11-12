@@ -292,7 +292,7 @@ const UpdateListing = () => {
                     </div>
                 ))
             }
-          <button disabled={loading || imageUpload} className="p-3 bg-slate-700 text-white rounded-lg uppercase hover:opacity-95 disabled:opacity-80">
+          <button type="submit" disabled={loading || imageUpload} className="p-3 bg-slate-700 text-white rounded-lg uppercase hover:opacity-95 disabled:opacity-80">
             {loading ? "Updating..." : "Update"}
           </button>
           {error ? <p className="text-red-700">{error}</p> : null}
