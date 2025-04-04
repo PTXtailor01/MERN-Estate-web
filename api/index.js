@@ -6,16 +6,20 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 import path from 'path'
+// const dotenv = require('dotenv')
+dotenv.config();
 
 const app = express();
 const _dirname = path.resolve();
+const url = process.env.MONGO
+console.log(url)
+// const url = 'mongodb+srv://kvpatel0701:kvpatel0701@mern-estate.omyvru1.mongodb.net/mern-estate?retryWrites=true&w=majority'
 
 app.use(express.json());
 app.use(cookieParser());
 
-dotenv.config();
 mongoose
-  .connect(process.env.MONGO)
+  .connect(url)
   .then(() => {
     console.log("Connected to mongodb");
   })

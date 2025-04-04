@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Swiper , SwiperSlide } from 'swiper/react';
 import SwiperCore from 'swiper';
@@ -18,7 +18,6 @@ const Listing = () => {
   const [contact ,setContact] = useState(false);
   const [copied ,setCopied] = useState(false)
 
-  console.log(listing)
   useEffect(() => {
     const fetchListing = async () => {
       try {
@@ -30,6 +29,7 @@ const Listing = () => {
           },
         });
         const data = await res.json();
+        console.log(data)
         if (data.success === false) {
           setError(true);
           setLoading(false);

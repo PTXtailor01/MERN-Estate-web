@@ -13,7 +13,7 @@ const UpdateListing = () => {
         name:'',
         description:'',
         address:'',
-        type:'remt',
+        type:'',
         bedrooms:1,
         bathrooms:1,
         regularPrice:0,
@@ -186,11 +186,11 @@ const UpdateListing = () => {
           />
           <div className="flex gap-6 flex-wrap">
             <div className="flex gap-2">
-              <input type="checkbox" id="sell" className="w-5" onChange={()=>handleTypeChange('sale')} checked={formData.type === 'sale'}/>
+              <input type="radio" id="sell" className="w-5" onChange={()=>handleTypeChange('sale')} checked={formData.type === 'sale'}/>
               <span className="">Sale</span>
             </div>
             <div className="flex gap-2">
-              <input type="checkbox" id="rent" className="w-5" onChange={()=>handleTypeChange('rent')} checked={formData.type === 'rent'}/>
+              <input type="radio" id="rent" className="w-5" onChange={()=>handleTypeChange('rent')} checked={formData.type === 'rent'}/>
               <span className="">Rent</span>
             </div>
             <div className="flex gap-2">
